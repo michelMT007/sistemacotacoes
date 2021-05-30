@@ -2,13 +2,10 @@ package com.example.demo.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
-import javax.swing.DefaultRowSorter;
-
+//import javax.swing.DefaultRowSorter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.example.demo.exceptions.BusinessException;
 import com.example.demo.exceptions.NotFoundExeption;
 import com.example.demo.mapper.StockMapper;
@@ -75,7 +72,10 @@ public class StockService {
 	}
 	@Transactional(readOnly = true)
 	public List<StockDTO> findByToday(){
-		return repository.findByToday(LocalDate.now()).map(mapper::toDto).orElseThrow(NotFoundExeption::new);
+		//Com parametro LocalDate estava dando problemas, foi retirado,
+		//passei a resposabilidade para o banco CURRENT_DATE ai funcionou.
+		//Posteriormente volto paa corrigir 
+		return repository.findByToday().map(mapper::toDto).orElseThrow(NotFoundExeption::new);
 	}
 	
 	
